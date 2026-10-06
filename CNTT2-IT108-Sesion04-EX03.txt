@@ -1,0 +1,215 @@
+BÀI 3: THIẾT KẾ HỆ THỐNG IoT THÔNG MINH VÀ QUẢN LÝ CẤU HÌNH
+1. Thiết kế kiến trúc 4 tầng DIKW
+Hệ thống “Trang trại Lan thông minh” có thể được thiết kế theo luồng:
+CẢM BIẾN IoT
+     ↓
+   DATA
+     ↓
+ INFORMATION
+     ↓
+ KNOWLEDGE
+     ↓
+  WISDOM
+     ↓
+ HÀNH ĐỘNG
+Sơ đồ chi tiết
+┌──────────────────────────────────────────────┐
+│ DATA – DỮ LIỆU                               │
+│ Cảm biến thu thập:                          │
+│ • Độ ẩm đất                                  │
+│ • Nhiệt độ                                   │
+│ • Lượng mưa                                  │
+│ • Ánh sáng                                   │
+└─────────────────────┬────────────────────────┘
+                      ↓
+┌──────────────────────────────────────────────┐
+│ INFORMATION – THÔNG TIN                      │
+│ Hệ thống xử lý và tổng hợp dữ liệu:          │
+│ • Đất đang khô                               │
+│ • Nhiệt độ hiện tại: 36°C                   │
+│ • Độ ẩm thấp                                 │
+│ → Gửi thông báo cho chủ vườn                 │
+└─────────────────────┬────────────────────────┘
+                      ↓
+┌──────────────────────────────────────────────┐
+│ KNOWLEDGE – KIẾN THỨC                        │
+│ Đặt quy tắc tự động:                         │
+│ • Nếu nhiệt độ > 35°C                       │
+│   → bật máy bơm                              │
+│ • Nếu độ ẩm đất thấp                         │
+│   → tăng mức tưới                             │
+└─────────────────────┬────────────────────────┘
+                      ↓
+┌──────────────────────────────────────────────┐
+│ WISDOM – TRÍ TUỆ                             │
+│ Kết hợp dữ liệu dài hạn + dự báo thời tiết:  │
+│ • Dự báo mưa trong những ngày tới            │
+│ • Lịch sử lượng nước sử dụng                 │
+│ • Điều kiện đất và cây trồng                 │
+│ → Tối ưu lượng nước tưới                     │
+└─────────────────────┬────────────────────────┘
+                      ↓
+             ┌─────────────────┐
+             │ HỆ THỐNG TƯỚI  │
+             │ THÔNG MINH      │
+             └─────────────────┘
+
+2. Phân tích 4 tầng DIKW
+Tầng 1: Data – Dữ liệu
+Đây là dữ liệu thô được thu thập trực tiếp từ các cảm biến IoT.
+Ví dụ:
+Nhiệt độ: 36°C
+Độ ẩm đất: 25%
+Lượng mưa: 0 mm
+Ánh sáng: 80%
+Ở tầng này, dữ liệu chỉ là các giá trị đo được và chưa đưa ra kết luận.
+
+Tầng 2: Information – Thông tin
+Hệ thống xử lý và tổ chức dữ liệu để tạo ra thông tin có ý nghĩa.
+Ví dụ:
+Nhiệt độ hiện tại là 36°C.
+Độ ẩm đất đang thấp.
+Trời hiện không có mưa.
+Hệ thống có thể gửi thông báo:
+Cảnh báo: Nhiệt độ cao và độ ẩm đất thấp, cần kiểm tra tình trạng cây trồng.
+Như vậy, dữ liệu thô đã được chuyển thành thông tin giúp chủ vườn hiểu tình trạng hiện tại.
+
+Tầng 3: Knowledge – Kiến thức
+Hệ thống sử dụng các quy tắc đã được lập trình để đưa ra hành động.
+Ví dụ:
+IF nhiệt độ > 35°C
+THEN bật máy bơm
+Hoặc:
+IF độ ẩm đất < ngưỡng cho phép
+THEN tăng thời gian tưới
+Ví dụ thực tế:
+Nhiệt độ = 36°C
+       ↓
+36 > 35
+       ↓
+Điều kiện đúng
+       ↓
+Bật máy bơm
+Đây là bước hệ thống bắt đầu sử dụng kiến thức để ra quyết định tự động.
+
+3. Tầng Wisdom – Trí tuệ
+Wisdom là tầng cao nhất, trong đó hệ thống không chỉ phản ứng với dữ liệu hiện tại mà còn sử dụng dữ liệu lịch sử, kinh nghiệm và dự báo tương lai để đưa ra quyết định tối ưu.
+Ví dụ:
+Dự báo 2 ngày tới có mưa lớn
++
+Độ ẩm đất hiện tại vẫn đủ
++
+Lịch sử cho thấy cây không cần tưới nhiều
+        ↓
+Giảm hoặc trì hoãn lượng nước tưới
+Ngược lại, nếu:
+Dự báo dài hạn không có mưa
++
+Nhiệt độ cao
++
+Độ ẩm đất thấp
+        ↓
+Tăng lượng nước tưới phù hợp
+Mục tiêu không đơn giản là “càng nóng thì càng tưới nhiều”, mà là tưới đúng lượng nước, đúng thời điểm, giúp tiết kiệm nước và bảo vệ cây trồng.
+
+4. Bẫy 1: Quản lý file .env và .git
+File:
+.env
+thường được sử dụng để lưu các thông tin cấu hình hoặc thông tin nhạy cảm, chẳng hạn:
+PUMP_USERNAME=...
+PUMP_PASSWORD=...
+IOT_API_KEY=...
+Đây là file ẩn trong nhiều hệ điều hành/cấu hình hiển thị.
+Vấn đề
+Nếu không bật Hidden Items, người quản lý có thể không nhìn thấy file .env khi kiểm tra thư mục.
+Do đó, khi dọn dẹp hoặc quản lý dự án cần đặc biệt chú ý đến các file ẩn.
+Trong Windows có thể bật:
+File Explorer
+→ View
+→ Show
+→ Hidden items
+Lưu ý quan trọng với Git
+Không nên đưa .env chứa mật khẩu/API key lên GitHub.
+Có thể thêm vào:
+.gitignore
+Ví dụ:
+.env
+Cấu trúc:
+smart-farm/
+├── .git/
+├── .gitignore
+├── .env
+├── src/
+└── README.md
+Trong đó:
+.env: lưu cấu hình bí mật ở máy chạy chương trình.
+.gitignore: yêu cầu Git bỏ qua .env.
+.git: chứa thông tin quản lý phiên bản của repository.
+Không nên xóa .git tùy tiện, vì có thể làm mất thông tin quản lý phiên bản của dự án.
+
+5. Bẫy 2: Tính dung lượng lưu trữ trong 1 năm
+Hệ thống tạo:
+50 MB/ngày
+Một năm giả sử có:
+365 ngày
+Dung lượng dữ liệu cần lưu:
+50 × 365 = 18.250 MB
+Đổi sang GB theo hệ số 1024:
+18.250 ÷ 1024 ≈ 17,82 GB
+Vậy dữ liệu trong một năm cần khoảng:
+17,82 GB.
+
+6. Tính dung lượng ổ đĩa tối thiểu
+Yêu cầu không được sử dụng quá 70% dung lượng ổ đĩa.
+Gọi dung lượng ổ đĩa cần có là X.
+Ta có:
+70% × X ≥ 17,82 GB
+Suy ra:
+X ≥ 17,82 ÷ 0,7
+X ≥ 25,46 GB
+Vì vậy, về mặt tính toán, cần ổ đĩa có dung lượng ít nhất khoảng 25,46 GB.
+Trong thực tế nên chọn dung lượng lớn hơn, chẳng hạn 32 GB trở lên, để còn không gian cho hệ điều hành, chương trình, file tạm và dữ liệu phát sinh.
+
+7. Tối ưu hóa hệ thống IoT bằng SoC
+Một thiết bị IoT có thể sử dụng SoC (System on Chip) để tích hợp nhiều thành phần xử lý trên một chip.
+Ví dụ có thể tích hợp:
+┌─────────────────────────┐
+│          SoC            │
+│                         │
+│   CPU + Memory          │
+│   GPIO                  │
+│   Network/Wi-Fi         │
+│   Bộ điều khiển I/O     │
+└─────────────────────────┘
+Trong trang trại thông minh, SoC giúp thiết bị:
+Thu thập dữ liệu cảm biến.
+Xử lý dữ liệu tại thiết bị.
+Gửi dữ liệu về hệ thống trung tâm.
+Điều khiển máy bơm.
+Tiết kiệm không gian và năng lượng.
+Ví dụ:
+Cảm biến nhiệt độ
+       ↓
+      SoC
+       ↓
+Nhiệt độ > 35°C?
+       ↓
+      YES
+       ↓
+Điều khiển relay
+       ↓
+   Bật máy bơm
+Điều này giúp một số quyết định được xử lý ngay tại thiết bị, thay vì phải gửi mọi dữ liệu lên máy chủ.
+
+8. Kết luận
+Hệ thống “Trang trại Lan thông minh” ứng dụng DIKW theo chuỗi:
+Data
+ ↓
+Information
+ ↓
+Knowledge
+ ↓
+Wisdom
+ ↓
+Quyết định và hành động thông minh
+
